@@ -1,0 +1,21 @@
+
+src_dir=Src/
+obj_dir=Objs/
+
+
+all: COG
+
+SRC := $(wildcard $(src_dir)*.c)
+OBJS := $(SRC:$(src_dir)%.c=$(obj_dir)%.o)
+
+$(obj_dir)%.o: $(src_dir)%.c
+	$(CMP) $(CFLAGS) $@ $< $(IFLAGS)
+
+COG: $(OBJS)
+	$(CMP) -o COG $(OBJS) -L. $(LFLAGS)  -lm
+
+.PHONY:clean
+
+clean:
+	find . -maxdepth 2 -name "*.o" -delete 
+	find . -maxdepth 2 -name "COG" -delete 
